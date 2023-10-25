@@ -1,0 +1,26 @@
+name: rna_contrast
+channels:
+- fastai
+- pytorch
+- defaults
+- bioconda
+dependencies:
+  - python==3.7.10
+  - nbdev
+  - numpy
+  - pandas
+  - seaborn
+  - jupyter
+  - notebook
+  - tabix
+  - pyfaidx
+  - pytabix
+  - cython
+  - tqdm
+  - natsort
+  - pip:
+    - tensorflow==2.11
+    - tensorflow-probability
+    - tensorflow-addons
+    - absl-py
+    - wandb

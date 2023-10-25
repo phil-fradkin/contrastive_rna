@@ -1,0 +1,241 @@
+from contrastive_rna_representation.gene_dataset import (
+    write_tf_record_gene_pair_dataset
+)
+from contrastive_rna_representation.gene_dataset import (
+    write_tf_record_gene_pair_dataset_multi_genome
+)
+
+MULTIGENOME_HOMOLOGENE=True
+MULTIGENOME=False
+MOUSE_HUMAN=False
+HUMAN=False
+
+fasta_file_path=(
+    "/ssd005/home/phil/Documents/01_projects/"
+    "contrastive_rna_representation/"
+    "annotation_data/ref_genomes"
+)
+refseq_file_path=(
+    "/ssd005/home/phil/Documents/01_projects/"
+    "contrastive_rna_representation/annotation_data/"
+    "refseq_gencode_files"
+)
+
+if MULTIGENOME_HOMOLOGENE:
+    refseq_files = (
+        f"{refseq_file_path}/all_chicken_ncbi_refseq_g6a.tsv",
+        f"{refseq_file_path}/all_celegans_ncbi_refseq_ce11.tsv",
+        f"{refseq_file_path}/all_chimp_ncbi_refseq_panTr06.tsv",
+        f"{refseq_file_path}/all_cow_ncbi_refseq_bosTau9.tsv",
+        f"{refseq_file_path}/all_dog_ncbi_refseq_canFam4.tsv",
+        f"{refseq_file_path}/all_drosophila_ncbi_refseq_dm6.tsv",
+        f"{refseq_file_path}/all_rat_ncbi_refseq_rn7.tsv",
+        f"{refseq_file_path}/all_zebrafish_ncbi_refseq_danRer11.tsv",
+        f"{refseq_file_path}/human_comprehensive_gencode_v41_hg38.tsv",
+        f"{refseq_file_path}/mouse_comprehensive_gencodevm25_mm10.tsv",
+    )
+    fasta_files=(
+        f"{fasta_file_path}/galGal6.fa",
+        f"{fasta_file_path}/ce11.fa",
+        f"{fasta_file_path}/panTro6.fa",
+        f"{fasta_file_path}/bosTau9.fa",
+        f"{fasta_file_path}/canFam4.fa",
+        f"{fasta_file_path}/dm6.fa",
+        f"{fasta_file_path}/rn7.fa",
+        f"{fasta_file_path}/danRer11.fa",
+        f"{fasta_file_path}/hg38.fa",
+        f"{fasta_file_path}/mm10.fa",
+    )
+    species_names=(
+        "chicken",
+        'celegans',
+        'chimpanzee',
+        'cow',
+        'dog',
+        'drosophila',
+        'rat',
+        'zebrafish',
+        'human',
+        'mouse',
+    )
+    write_tf_record_gene_pair_dataset_multi_genome(
+        refseq_files=refseq_files,
+        fasta_files=fasta_files,
+        species_names=species_names,
+        dataset_path="../data_new/10_genome_no_homologene",
+        transcript_length_drop=12288,
+        mini_dataset=False,
+        zero_mean=False,
+        zero_pad=True,
+        n_genes_per_sub_dict=200,
+        compression_type="ZLIB",
+        drop_non_nm=False,
+        drop_single_t_genes=False,
+        n_tracks=6,
+        do_homologene_map=False,
+    )
+
+
+
+if MULTIGENOME:
+    refseq_files = (
+        f"{refseq_file_path}/all_celegans_ncbi_refseq_ce11.tsv",
+        f"{refseq_file_path}/all_chimp_ncbi_refseq_panTr06.tsv",
+        f"{refseq_file_path}/all_cow_ncbi_refseq_bosTau9.tsv",
+        f"{refseq_file_path}/all_dog_ncbi_refseq_canFam4.tsv",
+        f"{refseq_file_path}/all_drosophila_ncbi_refseq_dm6.tsv",
+        f"{refseq_file_path}/all_rat_ncbi_refseq_rn7.tsv",
+        f"{refseq_file_path}/all_rhesus_ncbi_refseq_rheMac10.tsv",
+        f"{refseq_file_path}/all_spombe_ncbi_refseq_sacCer3.tsv",
+        f"{refseq_file_path}/all_zebrafish_ncbi_refseq_danRer11.tsv",
+        f"{refseq_file_path}/human_comprehensive_gencode_v41_hg38.tsv",
+        f"{refseq_file_path}/mouse_comprehensive_gencodevm25_mm10.tsv",
+    )
+    fasta_files=(
+        f"{fasta_file_path}/ce11.fa",
+        f"{fasta_file_path}/panTro6.fa",
+        f"{fasta_file_path}/bosTau9.fa",
+        f"{fasta_file_path}/canFam4.fa",
+        f"{fasta_file_path}/dm6.fa",
+        f"{fasta_file_path}/rn7.fa",
+        f"{fasta_file_path}/rheMac10.fa",
+        f"{fasta_file_path}/sacCer3.fa",
+        f"{fasta_file_path}/danRer11.fa",
+        f"{fasta_file_path}/hg38.fa",
+        f"{fasta_file_path}/mm10.fa",
+    )
+    species_names=(
+        'celegans',
+        'chimp',
+        'cow',
+        'dog',
+        'drosophila',
+        'rat',
+        'rhesus',
+        'spombe',
+        'zebrafish',
+        'human',
+        'mouse',
+    )
+
+
+    write_tf_record_gene_pair_dataset_multi_genome(
+        refseq_files=refseq_files,
+        fasta_files=fasta_files,
+        species_names=species_names,
+        dataset_path="../data_new/mini_11_genome_gene_pair",
+        transcript_length_drop=12288,
+        mini_dataset=True,
+        zero_mean=False,
+        zero_pad=True,
+        n_genes_per_sub_dict=200,
+        compression_type="ZLIB",
+        drop_non_nm=False,
+        drop_single_t_genes=True,
+        n_tracks=6,
+        do_homolog_map=True,
+    )
+
+    write_tf_record_gene_pair_dataset_multi_genome(
+        refseq_files=refseq_files,
+        fasta_files=fasta_files,
+        species_names=species_names,
+        dataset_path="../data_new/11_genome_gene_pair",
+        transcript_length_drop=12288,
+        mini_dataset=False,
+        zero_mean=False,
+        zero_pad=True,
+        n_genes_per_sub_dict=150,
+        compression_type="ZLIB",
+        drop_non_nm=False,
+        drop_single_t_genes=False,
+        n_tracks=6,
+        do_homolog_map=True,
+    )
+    write_tf_record_gene_pair_dataset_multi_genome(
+        refseq_files=refseq_files,
+        fasta_files=fasta_files,
+        species_names=species_names,
+        dataset_path="../data_new/11_genome_gene_pair_drop_single",
+        transcript_length_drop=12288,
+        mini_dataset=False,
+        zero_mean=False,
+        zero_pad=True,
+        n_genes_per_sub_dict=100,
+        compression_type="ZLIB",
+        drop_non_nm=False,
+        drop_single_t_genes=True,
+        n_tracks=6,
+        do_homolog_map=True,
+    )
+
+    write_tf_record_gene_pair_dataset_multi_genome(
+        refseq_files=refseq_files,
+        fasta_files=fasta_files,
+        species_names=species_names,
+        dataset_path="../data_new/11_genome_gene_pair_no_homology",
+        transcript_length_drop=12288,
+        mini_dataset=False,
+        zero_mean=False,
+        zero_pad=True,
+        n_genes_per_sub_dict=150,
+        compression_type="ZLIB",
+        drop_non_nm=False,
+        drop_single_t_genes=False,
+        n_tracks=6,
+        do_homolog_map=False,
+    )
+
+if HUMAN:
+    write_tf_record_gene_pair_dataset(
+        "../data_new/gene_pair_human_6t_homolog",
+        transcript_length_drop=12288,
+        refseq_location_human="../data/gencode_basic_v41.tsv",
+        fasta_file_location_human="../data/hg38.fa",
+        mini_dataset=False,
+        n_genes_per_sub_dict=100,
+        drop_non_nm=False,
+        n_tracks=6,
+        do_homolog_map=True,
+    )
+    write_tf_record_gene_pair_dataset(
+        "../data_new/gene_pair_human_6t_homolog_drop_single",
+        transcript_length_drop=12288,
+        refseq_location_human="../data/gencode_basic_v41.tsv",
+        fasta_file_location_human="../data/hg38.fa",
+        mini_dataset=False,
+        n_genes_per_sub_dict=100,
+        drop_non_nm=False,
+        n_tracks=6,
+        do_homolog_map=True,
+        drop_single_t_genes=True,
+    )
+if MOUSE_HUMAN:
+    write_tf_record_gene_pair_dataset(
+        "../data_new/gene_pair_human_mouse_6t_homolog",
+        transcript_length_drop=12288,
+        refseq_location_mouse="../data/wgEncodeGencodeBaseicVM25.tsv",
+        fasta_file_location_mouse="../data/mm10.fa",
+        refseq_location_human="../data/gencode_basic_v41.tsv",
+        fasta_file_location_human="../data/hg38.fa",
+        mini_dataset=False,
+        n_genes_per_sub_dict=100,
+        drop_non_nm=False,
+        n_tracks=6,
+        drop_single_t_genes=False,
+        do_homolog_map=True,
+    )
+    write_tf_record_gene_pair_dataset(
+        "../data_new/gene_pair_human_mouse_6t_homolog_drop_single",
+        transcript_length_drop=12288,
+        refseq_location_mouse="../data/wgEncodeGencodeBaseicVM25.tsv",
+        fasta_file_location_mouse="../data/mm10.fa",
+        refseq_location_human="../data/gencode_basic_v41.tsv",
+        fasta_file_location_human="../data/hg38.fa",
+        mini_dataset=False,
+        n_genes_per_sub_dict=100,
+        drop_non_nm=False,
+        n_tracks=6,
+        drop_single_t_genes=True,
+        do_homolog_map=True,
+    )

@@ -1,0 +1,31 @@
+name: huggingface
+channels:
+- fastai
+- pytorch
+- defaults
+- bioconda
+- nvidia
+- huggingface
+- conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - seaborn
+  - jupyter
+  - notebook
+  - tabix
+  - pyfaidx
+  - pytabix
+  - cython
+  - tqdm
+  - natsort
+  - transformers
+  - pytorch
+  - pytorch-cuda
+  - einops
+  - pip
+  - ipython
+  - pip:
+    - absl-py
+    - wandb
